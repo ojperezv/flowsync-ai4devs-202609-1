@@ -1,35 +1,17 @@
-# Prompts
+# Registro de Prompts — Trazabilidad: Responsable de la tarea
 
-Aquí van **todos los prompts que lanzaste** para hacer el ejercicio, en el orden en que los
-lanzaste, con el modelo y la herramienta de cada uno.
-
-Esto no es papeleo. Lo que se revisa es **cómo pediste las cosas**, no solo lo que salió: un
-resultado flojo con un prompt bueno y un resultado flojo con un prompt vago necesitan feedback
-distinto, y sin este archivo no se distinguen.
-
-## Cómo rellenarlo
-
-- Un apartado `## Prompt N` por cada prompt.
-- **Pega el prompt tal cual lo lanzaste**, dentro del bloque de código, aunque ocupe diez líneas
-  y aunque tenga faltas. No lo reescribas para que quede bien: el que arreglaste mentalmente
-  después no es el que lanzaste.
-- Incluye también los que **no funcionaron**. Suelen ser los más útiles de leer.
-- `Modelo` y `Herramienta` en todos. Si cambiaste de una a otra a mitad, se nota aquí.
-
-Borra el ejemplo de abajo cuando escribas el primero.
+- **Herramienta:** GitHub Copilot (Eclipse - Chat)
+- **Modelo:** Claude 3.5 Sonnet
+- **Pega el prompt tal cual lo lanzaste:**
+  > `Inspecciona los tests existentes en backend/tests/functional/tasks/ para verificar la cobertura del requisito "Lo que cada tarea muestra de su responsable" en openspec/specs/tasks/spec.md. Evalúa los 3 escenarios del requisito (Responsable identificable, La tarea no filtra datos de cuenta, Responsable sin nombre). Indica para cada escenario la función o bloque de prueba, el estado (Cubierto, No cubierto o No lo sé) y las aserciones internas.`
+- **Lo que no funcionó / Hallazgos:**
+  *El agente identificó que en la carpeta de pruebas de tareas solo existían archivos de referencia sobre autenticación y login, dejando los 3 escenarios del responsable de la tarea en estado No cubierto por falta de pruebas funcionales en ese módulo.*
 
 ---
 
-## Prompt 1
-
-**Modelo:** Opus 1M xHigh
-**Herramienta:** Claude Code
-
-```
-Este es el ejemplo. Bórralo.
-
-El prompt va aquí dentro, entero y con sus saltos de línea,
-para que se sepa dónde empieza y dónde acaba.
-```
-
-**Qué salió:** (opcional, una línea) funcionó a la primera / tuve que insistir / me inventó una ruta que no existe.
+- **Herramienta:** GitHub Copilot (Eclipse - Chat)
+- **Modelo:** Claude 3.5 Sonnet
+- **Pega el prompt tal cual lo lanzaste:**
+  > `Escribe únicamente el código en TypeScript para el archivo backend/tests/functional/tasks/assignee.spec.ts usando AdonisJS y Japa (@japa/runner). Usa como base los patrones de auth (test.group, testUtils y login). Crea los tests para estos 3 escenarios del requisito "Lo que cada tarea muestra de su responsable": 1. Muestra nombre e iniciales bien calculadas del responsable. 2. No expone email ni clave (probando GET /api/v1/tasks/:id y GET /api/v1/tasks). 3. Si la cuenta no tiene nombre, el nombre llega nulo e iniciales presentes. Agrega ?today=2026-08-13 a las peticiones GET. Muestra solo el código en la respuesta del chat sin ejecutar comandos en la terminal.`
+- **Lo que no funcionó / Hallazgos del código:**
+  *Se descubrió que la clave foránea en la base de datos es `assigneeId` (no `userId`), que cuando una cuenta no tiene nombre las iniciales se derivan del email, y que la lista de tareas en backend tiene una falla de privacidad real al usar `UserTransformer` que expone el email en `GET /api/v1/tasks`.*
